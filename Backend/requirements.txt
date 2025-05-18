@@ -1,0 +1,9 @@
+# Core ML and data processing
+pandas
+scikit-learn
+joblib
+matplotlib
+
+# Flask backend
+flask
+flask-cors
