@@ -33,11 +33,11 @@ def train(csv_path):
     model.fit(X_scaled, y)
 
     # Save everything
-    joblib.dump(model, 'model/random_forest_model.pkl')
-    joblib.dump(scaler, 'model/scaler.pkl')
-    joblib.dump(features.tolist(), 'model/feature_names.pkl')
+    joblib.dump(model, '..\\model\\random_forest_model.pkl')
+    joblib.dump(scaler, '..\\model\\scaler.pkl')
+    joblib.dump(features.tolist(), '..\\model\\feature_names.pkl')
 
     print("Model, scaler, and features saved.")
 
 if __name__ == "__main__":
-    train("predictive_maintenance_dataset(1).csv")
+    train("..\\dataset\\predictive_maintenance_dataset.csv")

@@ -1,21 +1,20 @@
 from flask import Flask, request, jsonify
-import pickle
+import pandas as pd
+from scripts.predict import predict_failure_dates_df
 
 app = Flask(__name__)
 
-# Load the machine learning model
-with open('model/model.pkl', 'rb') as model_file:
-    model = pickle.load(model_file)
+@app.route('/predict_csv', methods=['POST'])
+def predict_csv():
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    data = request.get_json()
-    features = data['features']
-    
-    # Make prediction
-    prediction = model.predict([features])
-    
-    return jsonify({'prediction': prediction[0]})
+    df = pd.read_csv(file)
+    result = predict_failure_dates_df(df)
+    return result.to_json(orient='records')
 
 if __name__ == '__main__':
     app.run(debug=True)

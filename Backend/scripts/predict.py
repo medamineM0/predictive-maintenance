@@ -1,4 +1,3 @@
-# scripts/predictor.py
 import pandas as pd
 import joblib
 
@@ -17,16 +16,15 @@ def preprocess_new_data(df):
     df.drop(columns=['date'], inplace=True)
     return df
 
-def predict_failure_dates(csv_path):
-    df = pd.read_csv(csv_path)
+def predict_failure_dates_df(df):
     df = preprocess_new_data(df)
 
     latest = df.sort_values('original_date').groupby('device').tail(1)
     X_latest = latest[feature_names]
     X_scaled = scaler.transform(X_latest)
-
+    
     latest['predicted_RUL_days'] = model.predict(X_scaled)
     latest['predicted_failure_date'] = latest['original_date'] + pd.to_timedelta(latest['predicted_RUL_days'].round().astype(int), unit='D')
-
+    
     result = latest[['device', 'original_date', 'predicted_RUL_days', 'predicted_failure_date']]
     return result
