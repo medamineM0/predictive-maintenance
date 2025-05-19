@@ -1,9 +1,14 @@
 import pandas as pd
 import joblib
+import os
 
-model = joblib.load('model/random_forest_model.pkl')
-scaler = joblib.load('model/scaler.pkl')
-feature_names = joblib.load('model/feature_names.pkl')
+# Calculer le chemin absolu du dossier `model`
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MODEL_DIR = os.path.join(BASE_DIR, 'model')
+
+model = joblib.load(os.path.join(MODEL_DIR, 'random_forest_model.pkl'))
+scaler = joblib.load(os.path.join(MODEL_DIR, 'scaler.pkl'))
+feature_names = joblib.load(os.path.join(MODEL_DIR, 'feature_names.pkl'))
 
 def preprocess_new_data(df):
     df['date'] = pd.to_datetime(df['date'], errors='coerce')
@@ -28,3 +33,8 @@ def predict_failure_dates_df(df):
     
     result = latest[['device', 'original_date', 'predicted_RUL_days', 'predicted_failure_date']]
     return result
+
+# if __name__ == "__main__":
+#     # Exemple d'utilisation
+#     predictions = predict_failure_dates('../dataset/predictive_maintenance_dataset.csv')
+#     print(predictions)
