@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+'use client';
+import { useState } from 'react';
 import { Upload, FileText, BarChart3, AlertCircle, CheckCircle, TrendingUp, Activity, Wrench } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, ScatterChart, Scatter, PieChart, Pie, Cell } from 'recharts';
 
@@ -123,32 +124,24 @@ const PredictiveMaintenanceApp = () => {
     failure_date: pred.predicted_failure_date
   }));
 
-  const lineChartData = predictions.map((pred, index) => ({
-    device: pred.device,
-    rul_days: Math.round(pred.predicted_rul_days),
-    index: index + 1
-  }));
-
-  const COLORS = ['#10B981', '#3B82F6', '#F59E0B', '#EF4444'];
-
   return (
     <div className="min-h-screen bg-gray-50 p-4">
       <div className="max-w-6xl mx-auto">
         <header className="bg-white shadow-sm rounded-lg p-6 mb-6">
-          <h1 className="text-3xl font-bold text-gray-800">
+          <h1 className="text-3xl font-bold text-blue-800">
             Maintenance Prédictive - Analyse des Équipements Industriels
           </h1>
-          <p className="text-gray-600 mt-2">
-            Analysez vos données d'équipements (device, failure, metric1-9) pour prédire les pannes
+          <p className="text-gray-700 mt-2">
+            Analysez vos données d’équipements (device, failure, metric1-9) pour prédire les pannes.
           </p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           {/* Section Upload */}
           <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-xl font-semibold mb-4 flex items-center">
+            <h2 className="text-xl font-semibold mb-4 flex items-center text-gray-900">
               <Upload className="mr-2" size={24} />
-              Upload de fichier CSV
+              Upload du fichier CSV
             </h2>
             
             <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
@@ -164,11 +157,11 @@ const PredictiveMaintenanceApp = () => {
                 className="cursor-pointer flex flex-col items-center"
               >
                 <FileText size={48} className="text-gray-400 mb-4" />
-                <span className="text-lg font-medium text-gray-700">
+                <span className="text-lg font-medium text-gray-800">
                   {file ? file.name : 'Cliquez pour sélectionner un fichier CSV'}
                 </span>
                 <span className="text-sm text-gray-500 mt-2">
-                  Format: date, device, failure, metric1-metric9
+                  Format : date, device, failure, metric1-metric9
                 </span>
               </label>
             </div>
@@ -191,11 +184,11 @@ const PredictiveMaintenanceApp = () => {
 
           {/* Section Résumé */}
           <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-xl font-semibold mb-4">Résumé de l'analyse</h2>
+            <h2 className="text-xl font-semibold mb-4 text-gray-900">Résumé de l’analyse</h2>
             
             {analysisData ? (
               <div className="space-y-4">
-                <div className="flex items-center text-green-600 mb-4">
+                <div className="flex items-center text-green-700 mb-4">
                   <CheckCircle size={20} className="mr-2" />
                   <span>Données analysées avec succès</span>
                 </div>
@@ -205,7 +198,7 @@ const PredictiveMaintenanceApp = () => {
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm text-gray-600">Équipements</p>
-                        <p className="text-2xl font-bold text-blue-600">{analysisData.deviceCount}</p>
+                        <p className="text-2xl font-bold text-blue-700">{analysisData.deviceCount}</p>
                       </div>
                       <Wrench className="text-blue-500" size={24} />
                     </div>
@@ -215,7 +208,7 @@ const PredictiveMaintenanceApp = () => {
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm text-gray-600">Mesures totales</p>
-                        <p className="text-2xl font-bold text-green-600">{analysisData.dataPoints.toLocaleString()}</p>
+                        <p className="text-2xl font-bold text-green-700">{analysisData.dataPoints.toLocaleString()}</p>
                       </div>
                       <TrendingUp className="text-green-500" size={24} />
                     </div>
@@ -226,14 +219,14 @@ const PredictiveMaintenanceApp = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-gray-600">Taux de panne</p>
-                      <p className="text-2xl font-bold text-red-600">{analysisData.failureRate}%</p>
+                      <p className="text-2xl font-bold text-red-700">{analysisData.failureRate}%</p>
                     </div>
                     <AlertCircle className="text-red-500" size={24} />
                   </div>
                 </div>
 
                 <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="text-sm text-gray-600">Période d'analyse</p>
+                  <p className="text-sm text-gray-600">Période d’analyse</p>
                   <p className="font-semibold">{analysisData.dateRange.start} - {analysisData.dateRange.end}</p>
                 </div>
 
@@ -255,7 +248,7 @@ const PredictiveMaintenanceApp = () => {
             ) : (
               <div className="text-gray-500 text-center py-8">
                 <FileText size={48} className="mx-auto mb-4 text-gray-300" />
-                <p>Uploadez un fichier pour voir l'analyse</p>
+                <p>Importez un fichier pour voir l’analyse</p>
               </div>
             )}
           </div>
@@ -284,7 +277,7 @@ const PredictiveMaintenanceApp = () => {
           <div className="space-y-6">
             {/* Graphique 1: Distribution des États de Santé */}
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-semibold mb-4">1. Distribution des États de Santé des Équipements</h2>
+              <h2 className="text-xl font-semibold mb-4 text-gray-900">1. Distribution des états de santé des équipements</h2>
               <div className="h-80 flex">
                 <div className="w-1/2">
                   <ResponsiveContainer width="100%" height="100%">
@@ -307,25 +300,21 @@ const PredictiveMaintenanceApp = () => {
                 </div>
                 <div className="w-1/2 pl-6">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h3 className="font-semibold mb-3">Signification:</h3>
+                    <h3 className="font-semibold mb-3 text-gray-900">Signification :</h3>
                     <ul className="text-sm space-y-2">
-                      <li>• <span className="text-green-600 font-medium">Excellent</span>: Équipements en parfait état</li>
-                      <li>• <span className="text-blue-600 font-medium">Bon</span>: Fonctionnement normal</li>
-                      <li>• <span className="text-yellow-600 font-medium">Attention</span>: Surveillance recommandée</li>
-                      <li>• <span className="text-red-600 font-medium">Critique</span>: Maintenance urgente requise</li>
+                      <li>• <span className="text-green-700 font-medium">Excellent</span> : Équipements en parfait état</li>
+                      <li>• <span className="text-blue-700 font-medium">Bon</span> : Fonctionnement normal</li>
+                      <li>• <span className="text-yellow-700 font-medium">Attention</span> : Surveillance recommandée</li>
+                      <li>• <span className="text-red-700 font-medium">Critique</span> : Maintenance urgente requise</li>
                     </ul>
                   </div>
                 </div>
               </div>
             </div>
 
-           
-
-          
-
             {/* Graphique 4: Répartition Panne/Sain */}
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-semibold mb-4">4. Répartition Global: Équipements Sains vs En Panne</h2>
+              <h2 className="text-xl font-semibold mb-4 text-gray-900">4. Répartition globale : équipements sains vs en panne</h2>
               <div className="h-80 flex">
                 <div className="w-1/2">
                   <ResponsiveContainer width="100%" height="100%">
@@ -348,14 +337,14 @@ const PredictiveMaintenanceApp = () => {
                 </div>
                 <div className="w-1/2 pl-6">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h3 className="font-semibold mb-3">Vue d'ensemble:</h3>
+                    <h3 className="font-semibold mb-3 text-gray-900">Vue d’ensemble :</h3>
                     <ul className="text-sm space-y-2">
-                      <li>• <span className="text-green-600 font-medium">Équipements Sains</span>: Fonctionnement normal</li>
-                      <li>• <span className="text-red-600 font-medium">Équipements en Panne</span>: Nécessitent une intervention</li>
+                      <li>• <span className="text-green-700 font-medium">Équipements sains</span> : Fonctionnement normal</li>
+                      <li>• <span className="text-red-700 font-medium">Équipements en panne</span> : Nécessitent une intervention</li>
                     </ul>
                     <div className="mt-4 p-3 bg-blue-50 rounded">
                       <p className="text-xs text-blue-800">
-                        <strong>Objectif:</strong> Prédire quand les équipements sains risquent de tomber en panne 
+                        <strong>Objectif :</strong> Prédire quand les équipements sains risquent de tomber en panne 
                         pour planifier la maintenance préventive.
                       </p>
                     </div>
@@ -370,7 +359,7 @@ const PredictiveMaintenanceApp = () => {
         {predictions.length > 0 && (
           <div className="space-y-6">
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-semibold mb-4">
+              <h2 className="text-xl font-semibold mb-4 text-gray-900">
                 Durée de vie restante par équipement (jours)
               </h2>
               <div className="h-96">
@@ -381,7 +370,7 @@ const PredictiveMaintenanceApp = () => {
                     <YAxis />
                     <Tooltip 
                       formatter={(value, name) => [value, 'Jours restants']}
-                      labelFormatter={(label) => `Équipement: ${label}`}
+                      labelFormatter={(label) => `Équipement : ${label}`}
                     />
                     <Bar dataKey="rul_days" fill="#3B82F6" />
                   </BarChart>
@@ -391,7 +380,7 @@ const PredictiveMaintenanceApp = () => {
 
             {/* Tableau des résultats */}
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-semibold mb-4">Détails des prédictions</h2>
+              <h2 className="text-xl font-semibold mb-4 text-gray-900">Détails des prédictions</h2>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm text-left">
                   <thead className="bg-gray-50">

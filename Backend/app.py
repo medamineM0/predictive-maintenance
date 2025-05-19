@@ -3,13 +3,12 @@ from flask_cors import CORS
 import pandas as pd
 import io
 import os
-from scripts.predict import predict_failure_dates, preprocess_new_data
+from scripts.predict import predict_failure_dates_df
 import joblib
 
 app = Flask(__name__)
-CORS(app)  # Permet les requêtes cross-origin depuis React
+CORS(app)  
 
-# Charger le modèle
 model = joblib.load('./model/random_forest_model.pkl')
 scaler = joblib.load('./model/scaler.pkl')
 feature_names = joblib.load('./model/feature_names.pkl')
@@ -50,8 +49,8 @@ def predict():
         temp_file = 'temp_processed.csv'
         if not os.path.exists(temp_file):
             return jsonify({'error': 'Aucun fichier traité trouvé. Veuillez d\'abord uploader un CSV.'}), 400
-
-        predictions = predict_failure_dates(temp_file)
+        df=pd.read_csv(temp_file)
+        predictions = predict_failure_dates_df(df)
 
         result = []
         for _, row in predictions.iterrows():
@@ -66,7 +65,7 @@ def predict():
         return jsonify({'predictions': result}), 200
 
     except Exception as e:
-        print(f"Erreur dans /predict: {e}")  # 👈 Affiche l'erreur dans la console
+        print(f"Erreur dans /predict: {e}") 
         return jsonify({'error': str(e)}), 500
 
 
