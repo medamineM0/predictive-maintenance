@@ -128,7 +128,7 @@ const PredictiveMaintenanceApp = () => {
     <div className="min-h-screen bg-gray-50 p-4">
       <div className="max-w-6xl mx-auto">
         <header className="bg-white shadow-sm rounded-lg p-6 mb-6">
-          <h1 className="text-3xl font-bold text-blue-800">
+          <h1 className="text-3xl font-bold text-blue-950">
             Maintenance Prédictive - Analyse des Équipements Industriels
           </h1>
           <p className="text-gray-700 mt-2">
@@ -139,7 +139,7 @@ const PredictiveMaintenanceApp = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           {/* Section Upload */}
           <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-xl font-semibold mb-4 flex items-center text-gray-900">
+            <h2 className="text-xl font-semibold mb-4 flex items-center text-blue-950">
               <Upload className="mr-2" size={24} />
               Upload du fichier CSV
             </h2>
@@ -184,7 +184,7 @@ const PredictiveMaintenanceApp = () => {
 
           {/* Section Résumé */}
           <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-xl font-semibold mb-4 text-gray-900">Résumé de l’analyse</h2>
+            <h2 className="text-xl font-semibold mb-4 text-blue-950">Résumé de l’analyse</h2>
             
             {analysisData ? (
               <div className="space-y-4">
@@ -227,7 +227,7 @@ const PredictiveMaintenanceApp = () => {
 
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <p className="text-sm text-gray-600">Période d’analyse</p>
-                  <p className="font-semibold">{analysisData.dateRange.start} - {analysisData.dateRange.end}</p>
+                  <p className="font-semibold text-slate-800">{analysisData.dateRange.start} - {analysisData.dateRange.end}</p>
                 </div>
 
                 <button
@@ -277,7 +277,7 @@ const PredictiveMaintenanceApp = () => {
           <div className="space-y-6">
             {/* Graphique 1: Distribution des États de Santé */}
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-semibold mb-4 text-gray-900">1. Distribution des états de santé des équipements</h2>
+              <h2 className="text-xl font-semibold mb-4 text-blue-950">1. Distribution des états de santé des équipements</h2>
               <div className="h-80 flex">
                 <div className="w-1/2">
                   <ResponsiveContainer width="100%" height="100%">
@@ -300,12 +300,12 @@ const PredictiveMaintenanceApp = () => {
                 </div>
                 <div className="w-1/2 pl-6">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h3 className="font-semibold mb-3 text-gray-900">Signification :</h3>
+                    <h3 className="font-semibold mb-3 text-blue-950">Signification :</h3>
                     <ul className="text-sm space-y-2">
-                      <li>• <span className="text-green-700 font-medium">Excellent</span> : Équipements en parfait état</li>
-                      <li>• <span className="text-blue-700 font-medium">Bon</span> : Fonctionnement normal</li>
-                      <li>• <span className="text-yellow-700 font-medium">Attention</span> : Surveillance recommandée</li>
-                      <li>• <span className="text-red-700 font-medium">Critique</span> : Maintenance urgente requise</li>
+                      <li>• <span className="text-green-700 font-medium">Excellent</span><span className="text-neutral-700"> : Équipements en parfait état</span> </li>
+                      <li>• <span className="text-blue-700 font-medium">Bon</span><span className="text-neutral-700"> : Fonctionnement normal</span></li>
+                      <li>• <span className="text-yellow-700 font-medium">Attention</span><span className="text-neutral-700"> : Surveillance recommandée</span> </li>
+                      <li>• <span className="text-red-700 font-medium">Critique</span><span className="text-neutral-700"> : Maintenance urgente requise</span> </li>
                     </ul>
                   </div>
                 </div>
@@ -314,7 +314,7 @@ const PredictiveMaintenanceApp = () => {
 
             {/* Graphique 4: Répartition Panne/Sain */}
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-semibold mb-4 text-gray-900">4. Répartition globale : équipements sains vs en panne</h2>
+              <h2 className="text-xl font-semibold mb-4 text-blue-950">4. Répartition globale : équipements sains vs en panne</h2>
               <div className="h-80 flex">
                 <div className="w-1/2">
                   <ResponsiveContainer width="100%" height="100%">
@@ -337,10 +337,10 @@ const PredictiveMaintenanceApp = () => {
                 </div>
                 <div className="w-1/2 pl-6">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h3 className="font-semibold mb-3 text-gray-900">Vue d’ensemble :</h3>
+                    <h3 className="font-semibold mb-3 text-blue-950">Vue d’ensemble :</h3>
                     <ul className="text-sm space-y-2">
-                      <li>• <span className="text-green-700 font-medium">Équipements sains</span> : Fonctionnement normal</li>
-                      <li>• <span className="text-red-700 font-medium">Équipements en panne</span> : Nécessitent une intervention</li>
+                      <li>• <span className="text-green-700 font-medium">Équipements sains</span><span className="text-neutral-700"> : Fonctionnement normal</span></li>
+                      <li>• <span className="text-red-700 font-medium">Équipements en panne</span><span className="text-neutral-700"> : Nécessitent une intervention</span></li>
                     </ul>
                     <div className="mt-4 p-3 bg-blue-50 rounded">
                       <p className="text-xs text-blue-800">
@@ -359,7 +359,7 @@ const PredictiveMaintenanceApp = () => {
         {predictions.length > 0 && (
           <div className="space-y-6">
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-semibold mb-4 text-gray-900">
+              <h2 className="text-xl font-semibold mb-4 text-blue-950">
                 Durée de vie restante par équipement (jours)
               </h2>
               <div className="h-96">
@@ -367,12 +367,13 @@ const PredictiveMaintenanceApp = () => {
                   <BarChart data={chartData}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="device" angle={-45} textAnchor="end" height={80} />
+                    
                     <YAxis />
                     <Tooltip 
                       formatter={(value, name) => [value, 'Jours restants']}
                       labelFormatter={(label) => `Équipement : ${label}`}
                     />
-                    <Bar dataKey="rul_days" fill="#3B82F6" />
+                    <Bar dataKey="rul_days"  fill="#3B82F6" />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -380,23 +381,23 @@ const PredictiveMaintenanceApp = () => {
 
             {/* Tableau des résultats */}
             <div className="bg-white rounded-lg shadow-sm p-6">
-              <h2 className="text-xl font-semibold mb-4 text-gray-900">Détails des prédictions</h2>
+              <h2 className="text-xl font-semibold mb-4 text-blue-950">Détails des prédictions</h2>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm text-left">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-4 py-3 font-semibold">Équipement</th>
-                      <th className="px-4 py-3 font-semibold">Date actuelle</th>
-                      <th className="px-4 py-3 font-semibold">Jours restants</th>
-                      <th className="px-4 py-3 font-semibold">Date de panne prédite</th>
-                      <th className="px-4 py-3 font-semibold">Priorité</th>
+                      <th className="px-4 py-3 font-semibold text-blue-950">Équipement</th>
+                      <th className="px-4 py-3 font-semibold text-blue-950">Date actuelle</th>
+                      <th className="px-4 py-3 font-semibold text-blue-950">Jours restants</th>
+                      <th className="px-4 py-3 font-semibold text-blue-950">Date de panne prédite</th>
+                      <th className="px-4 py-3 font-semibold text-blue-950">Priorité</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
                     {predictions.map((pred, index) => (
                       <tr key={index} className="hover:bg-gray-50">
-                        <td className="px-4 py-3 font-medium">{pred.device}</td>
-                        <td className="px-4 py-3">{pred.current_date}</td>
+                        <td className="px-4 py-3 font-medium text-stone-500">{pred.device}</td>
+                        <td className="px-4 py-3 text-stone-500">{pred.current_date}</td>
                         <td className="px-4 py-3">
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                             pred.predicted_rul_days < 30 
@@ -408,7 +409,7 @@ const PredictiveMaintenanceApp = () => {
                             {Math.round(pred.predicted_rul_days)}
                           </span>
                         </td>
-                        <td className="px-4 py-3">{pred.predicted_failure_date}</td>
+                        <td className="px-4 py-3 text-stone-500">{pred.predicted_failure_date}</td>
                         <td className="px-4 py-3">
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                             pred.predicted_rul_days < 30 
