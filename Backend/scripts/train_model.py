@@ -4,6 +4,7 @@ import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestRegressor
+import os
 
 def preprocess(data):
     data['date'] = pd.to_datetime(data['date'], errors='coerce')
@@ -32,12 +33,15 @@ def train(csv_path):
     model = RandomForestRegressor(n_estimators=100, random_state=42)
     model.fit(X_scaled, y)
 
+    os.makedirs('model', exist_ok=True)
+
     # Save everything
-    joblib.dump(model, '../model/random_forest_model.pkl')
-    joblib.dump(scaler, '../model/scaler.pkl')
-    joblib.dump(features.tolist(), '../model/feature_names.pkl')
+    joblib.dump(model, 'model/random_forest_model.pkl')
+    joblib.dump(scaler, 'model/scaler.pkl')
+    joblib.dump(features.tolist(), 'model/feature_names.pkl')
 
     print("Model, scaler, and features saved.")
 
 if __name__ == "__main__":
-    train("../dataset/predictive_maintenance_dataset.csv")
+    train("dataset/predictive_maintenance_dataset.csv")
+
